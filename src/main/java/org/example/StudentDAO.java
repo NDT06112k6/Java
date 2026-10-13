@@ -28,15 +28,15 @@ public class StudentDAO {
             System.out.println("Loi!" + e.getMessage());
         }
     }
-    public Student findById(String id) {
+    public Student findById(String id) throws SQLException
+    {
         String sql = "SELECT * FROM students WHERE id = ?";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, id);
-            try(ResultSet rs = pstmt.executeQuery())
-            {
+            try(ResultSet rs = pstmt.executeQuery()) {
 
-                if(rs.next()) {
+                if (rs.next()) {
                     Student s = new Student();
                     s.setId(rs.getString("id"));
                     s.setName(rs.getString("ten"));
@@ -44,9 +44,7 @@ public class StudentDAO {
                     return s;
                 }
             }
-        } catch (SQLException e) {
-            System.out.println("Loi ket noi!" + e.getMessage());
-        }
         return null;
+    }
     }
 }
