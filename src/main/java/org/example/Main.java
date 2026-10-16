@@ -1,6 +1,7 @@
 package org.example;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
     static void main(String[] args) {
@@ -18,6 +19,22 @@ public class Main {
         }catch (SQLException e)
         {
             System.out.println("Loi " + e.getMessage());
+        }
+        try {
+            List<Student> studentList = std.getAllStudents();
+            if(studentList.isEmpty())
+            {
+                System.out.println("Chua co sinh vien nao");
+            }else
+            {
+                for(Student student: std.getAllStudents())
+                {
+                    System.out.println(student);
+                }
+            }
+        }catch (SQLException e)
+        {
+            System.out.println("Loi" + e.getMessage());
         }
     }
 }

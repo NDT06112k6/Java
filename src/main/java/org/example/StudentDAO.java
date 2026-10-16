@@ -1,5 +1,8 @@
 package org.example;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/school_db";
     private static final String USER = "root";
@@ -35,7 +38,6 @@ public class StudentDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, id);
             try(ResultSet rs = pstmt.executeQuery()) {
-
                 if (rs.next()) {
                     Student s = new Student();
                     s.setId(rs.getString("id"));
@@ -46,5 +48,24 @@ public class StudentDAO {
             }
         return null;
     }
+    }
+    public List<Student> getAllStudents() throws SQLException
+    {
+        List<Student> list = new ArrayList<>();
+        String sql = "SELECT * FROM students";
+        try (Connection conn = DriverManager.getConnection(URL,USER,PASS);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs =  pstmt.executeQuery())
+        {
+            while(rs.next())
+            {
+                String id = rs.getString("id");
+                String ten = rs.getString("ten");
+                double gpa = rs.getDouble("gpa");
+                Student student = new Student(id,ten,gpa);
+                list.add(student);
+            }
+        }
+        return list;
     }
 }
