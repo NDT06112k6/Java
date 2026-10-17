@@ -60,12 +60,34 @@ public class StudentDAO {
             while(rs.next())
             {
                 String id = rs.getString("id");
-                String ten = rs.getString("ten");
+                String name = rs.getString("ten");
                 double gpa = rs.getDouble("gpa");
-                Student student = new Student(id,ten,gpa);
+                Student student = new Student(id,name,gpa);
                 list.add(student);
             }
         }
         return list;
+    }
+    public List<Student> locTheoGPA(Double minGpa) throws SQLException
+    {
+        List<Student> ketQua = new ArrayList<>();
+        String sql = "SELECT * FROM students WHERE gpa >= ?";
+        try(Connection conn = DriverManager.getConnection(URL,USER,PASS);
+        PreparedStatement pstmt = conn.prepareStatement(sql))
+        {
+            pstmt.setDouble(1,minGpa);
+            try(ResultSet rs = pstmt.executeQuery())
+            {
+                while(rs.next())
+                {
+                    String id = rs.getString("id");
+                    String name = rs.getString("ten");
+                    double gpa= rs.getDouble("gpa");
+                    Student student = new Student(id,name,gpa);
+                    ketQua.add(student);
+                }
+            }
+        }
+        return ketQua;
     }
 }
