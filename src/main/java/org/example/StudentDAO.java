@@ -105,4 +105,15 @@ public class StudentDAO {
         }
 
     }
+    public boolean deleteStudent(String id) throws SQLException
+    {
+        String sql = "DELETE FROM students WHERE id = ?";
+        try(Connection conn = DriverManager.getConnection(URL,USER,PASS);
+        PreparedStatement pstmt = conn.prepareStatement(sql))
+        {
+            pstmt.setString(1,id);
+            int rowAffected = pstmt.executeUpdate();
+            return rowAffected > 0;
+    }
+    }
 }

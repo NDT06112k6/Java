@@ -11,6 +11,9 @@ public class Main {
         String id = "135";
         Double minGpa = 3.7;
         Student st = new Student("123","NDT",3);
+        Student s2 = new Student("11111","qưee",3.7);
+        std.addStudent(s2);
+
         try{
             Student s = std.findById(id);
             if(s!=null)
@@ -22,7 +25,7 @@ public class Main {
             }
         }catch (SQLException e)
         {
-            System.out.println("Loi " + e.getMessage());
+            System.out.println("Lỗi kết nối Database " + e.getMessage());
         }
         try {
             List<Student> studentList = std.getAllStudents();
@@ -38,7 +41,7 @@ public class Main {
             }
         }catch (SQLException e)
         {
-            System.out.println("Loi" + e.getMessage());
+            System.out.println("Lỗi kết nối Database" + e.getMessage());
         }
         try
         {
@@ -55,7 +58,7 @@ public class Main {
             }
         }catch (SQLException e)
         {
-            System.out.println("Loi"+ e.getMessage());
+            System.out.println("Lỗi kết nối Database"+ e.getMessage());
         }
         try
         {
@@ -68,7 +71,20 @@ public class Main {
             }
         }catch (SQLException e)
         {
-            System.out.println("Loi" + e.getMessage());
+            System.out.println("Lỗi kết nối Database" + e.getMessage());
+        }
+        try
+        {
+            if(std.deleteStudent("11111"))
+            {
+                System.out.println("Xoa thanh cong: ");
+            }else
+            {
+                System.out.println("Xoa khong thanh cong");
+            }
+        }catch (SQLException e)
+        {
+            System.out.println("Lỗi kết nối Database!" + e.getMessage());
         }
     }
 }
