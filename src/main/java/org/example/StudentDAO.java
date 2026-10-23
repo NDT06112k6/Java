@@ -1,4 +1,5 @@
 package org.example;
+import java.rmi.StubNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,5 +90,19 @@ public class StudentDAO {
             }
         }
         return ketQua;
+    }
+    public boolean updateStudent(Student student) throws SQLException
+    {
+        String sql ="UPDATE students SET ten = ?, gpa = ? WHERE id = ? ";
+        try(Connection conn = DriverManager.getConnection(URL,USER,PASS);
+        PreparedStatement pstmt = conn.prepareStatement(sql))
+        {
+            pstmt.setString(1, student.getName());
+            pstmt.setDouble(2, student.getGpa());
+            pstmt.setString(3, student.getId());
+            int rowAffected = pstmt.executeUpdate();
+            return rowAffected > 0;
+        }
+
     }
 }

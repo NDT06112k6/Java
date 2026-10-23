@@ -10,6 +10,7 @@ public class Main {
         StudentDAO std = new StudentDAO();
         String id = "135";
         Double minGpa = 3.7;
+        Student st = new Student("123","NDT",3);
         try{
             Student s = std.findById(id);
             if(s!=null)
@@ -55,6 +56,19 @@ public class Main {
         }catch (SQLException e)
         {
             System.out.println("Loi"+ e.getMessage());
+        }
+        try
+        {
+            if(std.updateStudent(st))
+            {
+                System.out.println("Cap nhat thanh cong sinh vien " + st.getId());
+            }else
+            {
+                System.out.println("Không có sinh viên mang mã: " + st.getId());
+            }
+        }catch (SQLException e)
+        {
+            System.out.println("Loi" + e.getMessage());
         }
     }
 }
